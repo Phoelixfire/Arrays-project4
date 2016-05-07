@@ -1,10 +1,12 @@
-String author= "CST 112 Felix Gonzales";
+//Felix Gonzales
+String name = "CST 112 Felix Gonzales"; 
 float r=random(255), g=random(255), b=random(255);
 int an;
 
 
 int[] n= {an, an, an, an, an, an, an, an, an};
 int nums= n.length;
+
 
 void setup() {
 
@@ -18,17 +20,65 @@ void setup() {
 void draw() {
   background(r, g, b);
   display();
+  text(name, 550, 480);
+  text("Press c to change numbers", 450, 20);
+  text("Press b to put biggest number at the bottom", 450, 40);
+  text("Press a to increase numbers by 1", 450, 60);
+  text("Press d to decrease numbers by 1", 450, 80);
+  text("Press s to put smalled number at the top", 450, 100);
+  
+  
+  
 }
 
-void biggest() {
+void biggest( int a[], int aN) {    //sort biggest
 
+  int b= big( a, aN);
+  swap(a, b, aN-1);
+  
+}
 
-  int biggest( int a[], int allN ) {
+int big( int a[], int aN) {
+  int b=0;
+  for (int h = 1; h < aN; h++) {
+    if (a[h] > a [b]) b=h;
+  }
+
+  return b;
+}
+
+void swap (int c[], int a, int b) {
+  
+  int tmp = c[a];
+  c[a]= c[b];
+  c[b]= tmp;
+  println(tmp, c[a], c[b]);
+  printArray(c);
+}
+
+void inc( int a[], int m ) {
+  for (int i=0; i<m; i++) {
+    a[i]++;
   }
 }
-int adding( int a[], int allN ) {
+
+void dec( int a[], int m ) {
+  for (int i=0; i<m; i++) {
+    a[i]--;
+  }
+}
+
+void smallest( int a[], int m ) {
+  int b=0;
+  for (int h=1; h<m; h++) {
+    if (a[h] < a[b]) b=h;
+  }
+  swap( a, b, 0 );
+}
+
+int adding( int a[], int aN ) {
   int result=0;
-  for (int i=0; i<allN; i++ ) {
+  for (int i=0; i<aN; i++ ) {
     result += a[i];
   }
   return result;
@@ -53,12 +103,16 @@ void display() {
 
 void keyPressed() {
   if ( key == 'c') change(n, nums) ;
+  if ( key == 'b') biggest(n, nums);
+  if ( key == 'a') inc(n, nums) ;
+  if ( key == 'd') dec(n, nums);
+  if ( key == 's') smallest(n, nums);
 }
 
 
-void change( int a[], int m ) {
+void change( int a[], int aN ) {
   // Replace all numbers of random values.
-  for (int j=0; j<m; j++) {
+  for (int j=0; j<aN; j++) {
     a[j]=  int( random( 0, 1000 ) );
   }
 }
